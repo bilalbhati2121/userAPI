@@ -63,3 +63,64 @@ export const login = async (req, res) => {
  })
  }
   };
+
+  export const getall = async(req,res)=>{
+    var where ={}
+    if (req.query.email) {
+      where.email = req.query.email
+    }
+    if (req.query.username) {
+      where.username =req.query.username
+    }
+    const date = await user.find(where)
+    if (date.length > 0) {
+      res.send({
+         status: true,
+         msg: "User data fetch successfully.",
+         data: date
+      })
+   } else {
+      res.send({
+         status: false,
+         msg: "No data found",
+         data: []
+      })
+   }
+    res.send(date)
+
+  }
+
+export const update = async(req,res)=>{
+  const data = await user.findByIdAndUpdate({_id:req.body.id},req.body)
+  if (data) {
+    res.send({
+      status: true,
+      msg: "update successfully.",
+      data: {}
+    })
+  } else {
+    res.send({
+      status: false,
+      msg: "data found with given id or something wrong with update",
+      data: {}
+   })
+  }
+
+}
+
+export const Delete = async(req,res)=>{
+ const data = await user.findByIdAndDelete({_id:req.body.id})
+ if (data) {
+  res.send({
+     status: true,
+     msg: "Deleted successfully.",
+     data: {}
+  })
+} else {
+  res.send({
+     status: false,
+     msg: "data found with given id",
+     data: {}
+  })
+}
+}
