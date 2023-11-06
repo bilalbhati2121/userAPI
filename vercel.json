@@ -6,7 +6,7 @@
             "use":"@vercel/node"
         }
     ],
-    "$schema": [
+    "$routes": [
         {
             "src":"/(.*)",
             "dest":"/"
